@@ -41,7 +41,7 @@ That one rule makes the whole workspace auditable: the plan you see, the 3D mass
 
 | | |
 |---|---|
-| **Draw and design** | Plot, setbacks and north bearing; multi-floor rooms, walls, doors and windows; ghost-draw a room with exact live dimensions. |
+| **Draw and design** | Plot, setbacks and north bearing; multi-floor rooms, walls, doors and windows; ghost-draw a room with exact live dimensions. Select any room to edit its name, type, exact width/depth and openings, or drag the lime corner handles for direct resize. |
 | **Modern house styles** | Four modern façade families plus warm contemporary, coastal, brick, minimal grey, tropical and heritage looks. Front, rear, left and right concept elevations update from the same palette. |
 | **See every floor** | Toggle floor visibility on and off. The active floor draws full room labels and dimensions; other selected floors overlay as light room outlines, so you can compare levels without losing context. |
 | **Furnish rooms** | Add, move and remove beds, sofas, dining tables, wardrobes, kitchen counters, desks, bathroom fixtures and plants. Furniture is a presentation layer, deliberately excluded from areas, cost, Vastu and BOQ. |
@@ -133,6 +133,20 @@ Release-blocking rules:
 4. **Approval is human-only.** Applying a layout, restoring a checkpoint, deleting a floor and every export require explicit approval.
 5. **Truthful completion.** If a tool fails or needs approval, the agent must say so. It cannot claim a change was committed.
 6. **Invalidation is explicit.** Each mutation reports which derived views are stale, and the UI refreshes from the server after success.
+
+---
+
+## Manual editing
+
+You do not need the agent to change the design.
+
+1. **Select a room** on the plan. A quick editor appears above the canvas.
+2. Change its **name, type, exact width or depth**, then **Apply changes**. The service resizes the room and adjusts the surrounding wall logic.
+3. Or **drag a lime corner handle** on the selected room and release. The live ghost shows the new width × depth before the committed resize.
+4. Choose an **opening wall**, then add a door or window. The plan cuts the wall and draws the swing/glazing.
+5. Use **Draw room → drag a rectangle** to add a room with live dimensions. Select **+ Floor** for another level.
+6. Use the **Inspector** for furniture, façade styles, site amenities, setbacks and north bearing. Use the **floor checkboxes** to show or hide levels.
+7. Every manual action is still a typed tool call, so it has the same validation, revision, undo and audit behaviour as an agent action.
 
 ---
 

@@ -17,6 +17,7 @@ interface PlanCanvasProps {
   areaUnit: AreaUnit;
   /** Other selected floors are drawn as a light room outline overlay. */
   visibleFloors?: Floor[];
+  onResizeRoom?: (input: { roomId: string; width: number; depth: number; anchor: "sw" | "se" | "nw" | "ne" }) => Promise<void> | void;
 }
 
 type Mode = "select" | "draw";
@@ -61,10 +62,17 @@ export function PlanCanvas({
   busy,
   areaUnit,
   visibleFloors,
+  onResizeRoom,
 }: PlanCanvasProps) {
   const [mode, setMode] = useState<Mode>("select");
   const [roomType, setRoomType] = useState<RoomType>("bedroom");
   const [ghost, setGhost] = useState<Ghost>(null);
+  const [resize, setResize] = useState<{
+    roomId: string;
+    anchor: "sw" | "se" | "nw" | "ne";
+    fixed: Vec2;
+    current: Vec2;
+  } | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   const plot = useMemo(() => bbox(project.site.boundary), [project.site.boundary]);
@@ -99,13 +107,29 @@ export function PlanCanvas({
   }
 
   function handleMove(event: React.PointerEvent<SVGSVGElement>) {
-    if (!ghost) return;
     const point = pointFromEvent(event);
     if (!point) return;
+    if (resize) {
+      setResize({ ...resize, current: point });
+      return;
+    }
+    if (!ghost) return;
     setGhost({ start: ghost.start, current: point });
   }
 
   async function handleUp() {
+    if (resize) {
+      const width = Math.max(1.2, Math.abs(resize.current.x - resize.fixed.x));
+      const depth = Math.max(1.2, Math.abs(resize.current.y - resize.fixed.y));
+      setResize(null);
+      await onResizeRoom?.({
+        roomId: resize.roomId,
+        width: Math.round(width * 100) / 100,
+        depth: Math.round(depth * 100) / 100,
+        anchor: resize.anchor,
+      });
+      return;
+    }
     if (!ghost) return;
     const rect = normaliseRect(ghost.start, ghost.current);
     setGhost(null);
@@ -123,7 +147,27 @@ export function PlanCanvas({
     });
   }
 
+  function startResize(
+    event: React.PointerEvent<SVGRectElement>,
+    anchor: "sw" | "se" | "nw" | "ne",
+    fixed: Vec2,
+    corner: Vec2,
+  ) {
+    if (!selectedRoom || busy || !onResizeRoom) return;
+    event.stopPropagation();
+    svgRef.current?.setPointerCapture(event.pointerId);
+    setResize({ roomId: selectedRoom.id, anchor, fixed, current: corner });
+  }
+
   const ghostRect = ghost ? normaliseRect(ghost.start, ghost.current) : null;
+  const resizeRect = resize
+    ? {
+        x: Math.min(resize.fixed.x, resize.current.x),
+        y: Math.min(resize.fixed.y, resize.current.y),
+        width: Math.abs(resize.current.x - resize.fixed.x),
+        depth: Math.abs(resize.current.y - resize.fixed.y),
+      }
+    : null;
   const selectedRoom = floor.rooms.find((room) => room.id === selectedRoomId) ?? null;
   const overlayFloors = (visibleFloors ?? [floor]).filter((item) => item.id !== floor.id);
   const floorFurniture = (project.furniture ?? []).filter((item) => item.floorId === floor.id);
@@ -179,7 +223,7 @@ export function PlanCanvas({
           onPointerDown={handleDown}
           onPointerMove={handleMove}
           onPointerUp={handleUp}
-          onPointerCancel={() => setGhost(null)}
+          onPointerCancel={() => { setGhost(null); setResize(null); }}
           style={{ cursor: mode === "draw" ? "crosshair" : "default", background: "#fbf8f0" }}
         >
           <defs>
@@ -434,6 +478,63 @@ export function PlanCanvas({
               </g>
             );
           })()}
+
+          {/* Drag-to-resize handles for the selected room */}
+          {selectedRoom && !proposal && onResizeRoom && mode === "select" && !busy && (() => {
+            const b = bbox(selectedRoom.polygon);
+            const handles = [
+              { anchor: "ne" as const, fixed: { x: b.maxX, y: b.maxY }, corner: { x: b.minX, y: b.minY }, cursor: "nesw-resize" },
+              { anchor: "nw" as const, fixed: { x: b.minX, y: b.maxY }, corner: { x: b.maxX, y: b.minY }, cursor: "nwse-resize" },
+              { anchor: "se" as const, fixed: { x: b.maxX, y: b.minY }, corner: { x: b.minX, y: b.maxY }, cursor: "nwse-resize" },
+              { anchor: "sw" as const, fixed: { x: b.minX, y: b.minY }, corner: { x: b.maxX, y: b.maxY }, cursor: "nesw-resize" },
+            ];
+            return (
+              <g>
+                {handles.map((handle) => {
+                  const hx = X(handle.corner.x);
+                  const hy = Y(handle.corner.y);
+                  return (
+                    <rect
+                      key={handle.anchor}
+                      x={hx - 0.11}
+                      y={hy - 0.11}
+                      width="0.22"
+                      height="0.22"
+                      fill="#a8e24a"
+                      stroke="#0b2418"
+                      strokeWidth="0.035"
+                      style={{ cursor: handle.cursor }}
+                      onPointerDown={(event) => startResize(event, handle.anchor, handle.fixed, handle.corner)}
+                    />
+                  );
+                })}
+              </g>
+            );
+          })()}
+
+          {resizeRect && (
+            <g style={{ pointerEvents: "none" }}>
+              <rect
+                x={X(resizeRect.x)}
+                y={Y(resizeRect.y + resizeRect.depth)}
+                width={resizeRect.width}
+                height={resizeRect.depth}
+                fill="#78c22d"
+                fillOpacity="0.16"
+                stroke="#3f8f12"
+                strokeWidth="0.05"
+                strokeDasharray="0.25 0.15"
+              />
+              <text
+                x={X(resizeRect.x) + resizeRect.width / 2}
+                y={Y(resizeRect.y + resizeRect.depth) - 0.14}
+                textAnchor="middle"
+                className="ghost-label"
+              >
+                {resizeRect.width.toFixed(2)} × {resizeRect.depth.toFixed(2)} m · release to resize
+              </text>
+            </g>
+          )}
 
           {/* Ghost rectangle */}
           {ghostRect && (

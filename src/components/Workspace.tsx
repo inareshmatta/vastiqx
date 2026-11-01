@@ -14,6 +14,7 @@ import { ElevationsView } from "./ElevationsView";
 import { FilesPanel } from "./FilesPanel";
 import { Inspector } from "./Inspector";
 import { PlanCanvas } from "./PlanCanvas";
+import { RoomEditorBar } from "./RoomEditorBar";
 import { Scene3D } from "./Scene3D";
 import { area as areaLabel, compactMoney } from "./format";
 
@@ -415,6 +416,7 @@ export function Workspace({ initialView, agent }: WorkspaceProps) {
   }
 
   const activeFloor = floor ?? floors[0]!;
+  const selectedRoom = activeFloor.rooms.find((room) => room.id === selectedRoomId) ?? null;
   const candidatePreviewLabel = previewCandidate ? `${previewCandidate.name} (proposal)` : undefined;
 
   const planMetrics = view.metrics;
@@ -628,6 +630,24 @@ export function Workspace({ initialView, agent }: WorkspaceProps) {
                   </div>
                 </div>
 
+                {previewFloor ? (
+                  <div className="manual-hint">
+                    <b>Proposal preview.</b> This layout is not committed. Apply the proposal with approval, or clear the preview to return to manual editing.
+                  </div>
+                ) : selectedRoom ? (
+                  <RoomEditorBar
+                    room={selectedRoom}
+                    floor={activeFloor}
+                    busy={!!busyTool}
+                    onTool={runTool}
+                    onClear={() => setSelectedRoomId(null)}
+                  />
+                ) : (
+                  <div className="manual-hint">
+                    <b>Manual design:</b> tap any room to edit its name, type, exact width/depth and openings. Or choose <b>Draw room</b> and drag a rectangle. Select a room to drag its lime corner handles for direct resize.
+                  </div>
+                )}
+
                 {candidates.length > 0 && (
                   <>
                     <div className="section-title" style={{ marginTop: 0 }}>
@@ -687,12 +707,20 @@ export function Workspace({ initialView, agent }: WorkspaceProps) {
                   floor={previewFloor ?? activeFloor}
                   proposal={Boolean(previewFloor)}
                   proposalName={candidatePreviewLabel}
-                  selectedRoomId={selectedRoomId}
+                  selectedRoomId={previewFloor ? null : selectedRoomId}
                   onSelectRoom={setSelectedRoomId}
                   onAddRoom={handleAddRoom}
                   busy={!!busyTool}
                   areaUnit={areaUnit}
                   visibleFloors={floors.filter((item) => visibleFloorIds.includes(item.id))}
+                  onResizeRoom={previewFloor ? undefined : async ({ roomId, width, depth, anchor }) => {
+                    await runTool("resize_room", {
+                      room_id: roomId,
+                      width_m: width,
+                      depth_m: depth,
+                      anchor,
+                    });
+                  }}
                 />
 
                 <div className="section-title">
