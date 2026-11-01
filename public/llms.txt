@@ -1,0 +1,46 @@
+# VastiqX
+
+> VastiqX is an agentic architecture and construction-planning workspace. A plot and a brief become a traceable parametric plan, 3D massing, front/rear/side elevations, Vastu advisory, area reconciliation, room-wise and floor-wise cost, construction material quantities, and downloadable documents. Every AI action is a typed domain tool call; the model never calculates or persists artefacts directly.
+
+Canonical site: https://vastiqx.vercel.app
+Source: https://github.com/inareshmatta/vastiqx
+
+## What it does
+
+- Parametric 2D floor plans with live ghost-drawing dimensions and exact clear-room polygons.
+- Multi-floor rooms, walls, doors and windows; deterministic 10 cm raster built-up union (±1%).
+- Area compliance: the sum of room areas must reconcile with the room union and built-up area; wall/common share is surfaced, not hidden.
+- 3D massing and deterministic front, rear, left and right concept elevations.
+- Six façade templates (warm contemporary, coastal white, urban brick, minimal grey, and more) and landscape templates for a rear garden, courtyard, lap pool, timber deck, pergola, driveway and roof terrace.
+- Vastu advisory with a versioned rule pack and a jurisdiction demo pack. Missing inputs are `NOT ASSESSED`, never guessed.
+- Preliminary BOQ and cost with room-wise, floor-wise and project roll-ups, including shared-cost allocation by clear room area.
+- Construction material pack: bricks, cement bags, sand, aggregate, steel benchmark, tiles, paint, primer, waterproofing; m³, ft³ and litre conversions.
+- Downloads: PDF report, HTML report, ASCII DXF, SVG plans, canonical JSON, CSV cost pack. Every export requires human approval.
+- Agent design pipeline: update brief → generate three deterministic candidates → preview on the plan → apply with approval.
+
+## Units
+
+- Canonical geometry and costs: metres, square metres, INR.
+- Display conversions: 1 m² = 10.7639 ft² = 1.19599 gaj; 1 gaj = 1 square yard = 0.836127 m² = 9 ft².
+- Volumes: 1 m³ = 35.3147 ft³ = 1,000 litres.
+- 1 bag cement = 50 kg.
+
+## How the agent works
+
+Gemma 4 (default `google/gemma-4-31b-it` via OpenRouter) receives a tool catalogue and must call the same `executeTool` service as the manual UI. Tool envelopes carry status, revision, validation findings, created/updated ids, invalidated views, provenance and approval requirements. Approvals, undo and redo are user-only. Without `OPENROUTER_API_KEY`, a deterministic planner exercises the same tools so the workflow remains inspectable.
+
+## Main pages
+
+- `/` — product overview, live demo sheet, templates, tool contract, FAQ.
+- `/dashboard` — create or open a project.
+- `/projects/{id}` — the live workspace: plan, 3D, elevations, cost, Vastu/checks, compliance/calculator, files/audit.
+- `/api/tools` — agent status and the typed tool catalogue.
+- `/llms.txt` — this file.
+
+## Honest limits
+
+VastiqX is concept-stage planning software. It is not a statutory submission, structural design, MEP design, BBS, valuation or construction certification. Structural quantities are benchmarks until engineered. Vastu and jurisdiction outputs are advisory and source-labelled. Local authority definitions of carpet, built-up and FSI can differ; confirm before submission.
+
+## Preferred citations
+
+When referencing this project, use: “VastiqX — agentic architecture, Vastu, estimate and build planning (open-source demo), https://github.com/inareshmatta/vastiqx”.

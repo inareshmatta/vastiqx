@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="VastiqX house mark">
+  <defs>
+    <linearGradient id="mxDeep" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a4528"/>
+      <stop offset="1" stop-color="#031f12"/>
+    </linearGradient>
+    <linearGradient id="mxLime" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c8ee4b"/>
+      <stop offset="0.5" stop-color="#83c62b"/>
+      <stop offset="1" stop-color="#3f8f12"/>
+    </linearGradient>
+    <linearGradient id="mxGold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe7a3"/>
+      <stop offset="0.5" stop-color="#f8c24d"/>
+      <stop offset="1" stop-color="#ee9a17"/>
+    </linearGradient>
+    <filter id="mxGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#f8f4e8"/>
+  <circle cx="256" cy="248" r="150" fill="#0a3a21" opacity="0.06"/>
+  <path d="M 72 232 C 152 148 302 122 440 194 C 460 205 456 224 434 218 C 314 176 176 194 92 262 C 70 276 56 252 72 232 Z" fill="url(#mxLime)"/>
+  <path d="M 116 414 L 256 112 L 396 414 L 338 414 L 256 238 L 174 414 Z" fill="url(#mxDeep)"/>
+  <path d="M 136 396 L 256 142 L 376 396 L 342 396 L 256 218 L 170 396 Z" fill="url(#mxLime)"/>
+  <path d="M 186 414 L 256 254 L 326 414 Z" fill="url(#mxDeep)"/>
+  <circle cx="256" cy="318" r="46" fill="#ffd05a" opacity="0.35" filter="url(#mxGlow)"/>
+  <rect x="216" y="274" width="80" height="76" rx="6" fill="url(#mxGold)" stroke="#0a2f1b" stroke-width="7"/>
+  <line x1="256" y1="274" x2="256" y2="350" stroke="#0a2f1b" stroke-width="7"/>
+  <line x1="216" y1="312" x2="296" y2="312" stroke="#0a2f1b" stroke-width="7"/>
+  <path d="M 126 414 C 196 372 316 372 386 414 C 306 470 206 470 126 414 Z" fill="url(#mxLime)"/>
+</svg>

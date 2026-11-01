@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 860" width="1800" height="860" role="img" aria-label="VastiqX — Design, Vastu, Estimate, Build">
+  <defs>
+    <linearGradient id="vxDeep" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a4528"/>
+      <stop offset="0.55" stop-color="#06351f"/>
+      <stop offset="1" stop-color="#031f12"/>
+    </linearGradient>
+    <linearGradient id="vxLime" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c8ee4b"/>
+      <stop offset="0.45" stop-color="#83c62b"/>
+      <stop offset="1" stop-color="#3f8f12"/>
+    </linearGradient>
+    <linearGradient id="vxLimeSoft" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9bd934"/>
+      <stop offset="1" stop-color="#4f9f18"/>
+    </linearGradient>
+    <linearGradient id="vxGold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe7a3"/>
+      <stop offset="0.45" stop-color="#f8c24d"/>
+      <stop offset="1" stop-color="#ee9a17"/>
+    </linearGradient>
+    <linearGradient id="vxGlass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff6cf"/>
+      <stop offset="1" stop-color="#f5b72d"/>
+    </linearGradient>
+    <filter id="vxSoft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+  </defs>
+
+  <g fill="none" stroke="none">
+    <!-- Top sweeping arc -->
+    <path d="M 378 214 C 700 74 1120 58 1535 196 C 1568 208 1580 226 1564 238 C 1549 249 1528 241 1506 228 C 1150 104 760 116 430 248 C 392 263 368 248 378 214 Z" fill="url(#vxLime)"/>
+    <path d="M 392 228 C 720 100 1108 94 1470 208" fill="none" stroke="#d8f58a" stroke-width="5" opacity="0.55"/>
+
+    <!-- V -->
+    <path d="M 120 250 L 238 250 L 326 430 L 414 250 L 532 250 L 360 566 L 292 566 Z" fill="url(#vxDeep)"/>
+
+    <!-- House-A: roof, body, glowing window -->
+    <g transform="translate(0,0)">
+      <path d="M 300 566 L 492 150 L 684 566 L 606 566 L 492 336 L 378 566 Z" fill="url(#vxDeep)"/>
+      <path d="M 320 540 L 492 180 L 664 540 L 616 540 L 492 296 L 368 540 Z" fill="url(#vxLimeSoft)"/>
+      <path d="M 382 566 L 492 344 L 602 566 L 556 566 L 492 438 L 428 566 Z" fill="url(#vxDeep)"/>
+      <path d="M 420 566 L 492 420 L 564 566 Z" fill="#0a3a21" opacity="0.9"/>
+      <rect x="448" y="342" width="88" height="86" rx="6" fill="url(#vxGold)"/>
+      <rect x="448" y="342" width="88" height="86" rx="6" fill="none" stroke="#0b3b22" stroke-width="7"/>
+      <line x1="492" y1="342" x2="492" y2="428" stroke="#0b3b22" stroke-width="7"/>
+      <line x1="448" y1="385" x2="536" y2="385" stroke="#0b3b22" stroke-width="7"/>
+      <rect x="458" y="352" width="24" height="23" fill="#fff4c9" opacity="0.9"/>
+      <rect x="502" y="352" width="24" height="23" fill="#fff4c9" opacity="0.85"/>
+      <circle cx="492" cy="404" r="54" fill="#ffd05a" opacity="0.28" filter="url(#vxSoft)"/>
+      <path d="M 402 566 C 448 528 536 528 582 566 Z" fill="url(#vxLime)" opacity="0.85"/>
+    </g>
+
+    <!-- stiq wordmark -->
+    <text x="676" y="548" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-weight="900" font-size="390" letter-spacing="-16" fill="url(#vxDeep)">stiq</text>
+
+    <!-- X -->
+    <text x="1452" y="548" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-weight="900" font-size="400" letter-spacing="-10" fill="url(#vxLime)">X</text>
+
+    <!-- Lower sweep under the house -->
+    <path d="M 168 598 C 258 688 470 700 690 604 C 528 744 262 744 168 598 Z" fill="url(#vxLime)"/>
+    <path d="M 205 610 C 318 676 490 672 628 608" fill="none" stroke="#dff7a0" stroke-width="5" opacity="0.6"/>
+
+    <!-- Tagline rule left -->
+    <rect x="150" y="778" width="226" height="7" rx="3.5" fill="url(#vxLime)"/>
+    <!-- Tagline rule right -->
+    <rect x="1424" y="778" width="226" height="7" rx="3.5" fill="url(#vxLime)"/>
+
+    <!-- Cube icon -->
+    <g transform="translate(408 744)" stroke="#0a2a1a" stroke-width="5" fill="none" stroke-linejoin="round">
+      <path d="M 22 2 L 44 14 L 44 40 L 22 52 L 0 40 L 0 14 Z"/>
+      <path d="M 0 14 L 22 26 L 44 14"/>
+      <path d="M 22 26 L 22 52"/>
+      <path d="M 11 8 L 33 20" opacity="0.55"/>
+    </g>
+    <text x="476" y="792" font-family="'Arial',Helvetica,sans-serif" font-weight="700" font-size="40" letter-spacing="5" fill="#0a2a1a">DESIGN</text>
+    <text x="676" y="792" font-family="'Arial',Helvetica,sans-serif" font-weight="400" font-size="40" fill="#8eb27b">|</text>
+
+    <!-- Star icon -->
+    <g transform="translate(736 744)" stroke="#0a2a1a" stroke-width="5" fill="none">
+      <circle cx="26" cy="26" r="25"/>
+      <path d="M 26 7 L 31 20 L 45 21 L 34 30 L 38 44 L 26 36 L 14 44 L 18 30 L 7 21 L 21 20 Z" stroke-linejoin="round"/>
+    </g>
+    <text x="800" y="792" font-family="'Arial',Helvetica,sans-serif" font-weight="700" font-size="40" letter-spacing="5" fill="#0a2a1a">VASTU</text>
+    <text x="982" y="792" font-family="'Arial',Helvetica,sans-serif" font-weight="400" font-size="40" fill="#8eb27b">|</text>
+
+    <!-- Calculator icon -->
+    <g transform="translate(1042 744)" stroke="#0a2a1a" stroke-width="5" fill="none">
+      <rect x="2" y="2" width="48" height="52" rx="6"/>
+      <rect x="10" y="10" width="32" height="12" rx="2"/>
+      <circle cx="12" cy="32" r="2.4" fill="#0a2a1a" stroke="none"/>
+      <circle cx="26" cy="32" r="2.4" fill="#0a2a1a" stroke="none"/>
+      <circle cx="40" cy="32" r="2.4" fill="#0a2a1a" stroke="none"/>
+      <circle cx="12" cy="44" r="2.4" fill="#0a2a1a" stroke="none"/>
+      <circle cx="26" cy="44" r="2.4" fill="#0a2a1a" stroke="none"/>
+      <circle cx="40" cy="44" r="2.4" fill="#0a2a1a" stroke="none"/>
+    </g>
+    <text x="1104" y="792" font-family="'Arial',Helvetica,sans-serif" font-weight="700" font-size="40" letter-spacing="5" fill="#0a2a1a">ESTIMATE</text>
+    <text x="1330" y="792" font-family="'Arial',Helvetica,sans-serif" font-weight="400" font-size="40" fill="#8eb27b">|</text>
+
+    <!-- Helmet icon -->
+    <g transform="translate(1384 744)" stroke="#0a2a1a" stroke-width="5" fill="none" stroke-linejoin="round">
+      <path d="M 5 38 C 5 18 17 6 31 6 C 45 6 57 18 57 38"/>
+      <path d="M 1 38 L 61 38 L 61 45 L 1 45 Z" fill="#0a2a1a"/>
+      <path d="M 31 6 L 31 38"/>
+      <path d="M 16 12 C 21 8 26 7 31 7" opacity="0.6"/>
+    </g>
+    <text x="1454" y="792" font-family="'Arial',Helvetica,sans-serif" font-weight="700" font-size="40" letter-spacing="5" fill="#0a2a1a">BUILD</text>
+  </g>
+</svg>
